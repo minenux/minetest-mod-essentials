@@ -85,9 +85,11 @@ if enable_damage then
         if not ag["immortal"] then
             ag["immortal"] = 1
             core.chat_send_player(name, "God mode enabled")
+            minetest.sound_play("god_enabled", name)
         else
             ag["immortal"] = nil
             core.chat_send_player(name, "God mode diabled")
+            minetest.sound_play("god_disabled", name)
         end
         player:set_armor_groups(ag)
     end
