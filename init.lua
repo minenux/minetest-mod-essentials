@@ -13,6 +13,7 @@ dofile(modpath.."/unified_inventory.lua")
 dofile(modpath.."/ui/ban_menu.lua")
 dofile(modpath.."/ui/kick_menu.lua")
 dofile(modpath.."/ui/mute_menu.lua")
+dofile(modpath.."/ui/about.lua")
 
 minetest.log("action", "[Essentials] Mod initialised. Version: ".. version)
 
