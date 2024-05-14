@@ -1,17 +1,19 @@
--- god mode
-if enable_damage then
-    core.register_privilege("god", {
-        description = "Can use /god command",
-        give_to_singleplayer = false,
-    })
-end
-
-core.register_privilege("vip", {
-    description = "Can use vip commands",
+core.register_privilege("rename_player", {
+    description = "Can rename self.",
     give_to_singleplayer = false,
 })
 
-core.register_privilege("mute", {
-    description = "Can mute/unmute players.",
+core.register_privilege("rename_item", {
+    description = "Can rename item.",
+    give_to_singleplayer = false,
+})
+
+core.register_privilege("god_mode", {
+    description = "Can use /god command",
+    give_to_singleplayer = false,
+})
+
+core.register_privilege("colored_nickname", {
+    description = "Can use /color command",
     give_to_singleplayer = false,
 })
