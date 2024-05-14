@@ -7,7 +7,7 @@ end
 
 minetest.register_on_chat_message(function(name, message)
 	local prop = minetest.get_player_by_name(name):get_properties()
-    minetest.chat_send_player(name, dump(prop.nametag_color))
+    --minetest.chat_send_player(name, dump(prop.nametag_color))
 	minetest.chat_send_all(core.format_chat_message(core.colorize(convertColor(prop.nametag_color), name), message))
 	return true
 end)
