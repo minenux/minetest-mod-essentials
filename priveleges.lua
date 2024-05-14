@@ -17,3 +17,8 @@ core.register_privilege("colored_nickname", {
     description = "Can use /color command",
     give_to_singleplayer = false,
 })
+
+core.register_privilege("broadcast", {
+    description = "Can use /broadcast command",
+    give_to_singleplayer = false,
+})

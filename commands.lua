@@ -1,45 +1,4 @@
-local have_spawn_command = minetest.get_modpath("spawn_command")
 local enable_damage = core.settings:get_bool("enable_damage")
-
--- 'spawn_command' mod
-if have_spawn_command then
-    function set_the_spawn(name, param)
-		local p = {}
-        local posmessage = {x = 0, y = 0, z = 0}
-        local player = minetest.get_player_by_name(name);
-        local pos = player:get_pos();
-        local static_spawnpoint = minetest.setting_get_pos("static_spawnpoint");
-        local spawn_pos = vector.round(spawn_command.pos);
-        p.x, p.y, p.z = string.match(param, "^([%d.~-]+)[, ] *([%d.~-]+)[, ] *([%d.~-]+)$");
-		p = core.parse_coordinates(p.x, p.y, p.z, pos);
-
-        if player == nil then
-            return false
-        end
-
-		if p and p.x and p.y and p.z then
-            spawn_command.pos = {x = p.x, y = p.y, z = p.z};
-            static_spawnpoint = {x = p.x, y = p.y, z = p.z};
-            posmessage = {x = p.x, y = p.y, z = p.z};
-            minetest.chat_send_player(name, core.colorize("#00FF06", "Spawn sets successful at ".. posmessage.x .." ".. posmessage.y .." ".. posmessage.z .."!"))
-        elseif param == "" then
-            spawn_pos = vector.round(pos);
-            spawn_command.pos = spawn_pos;
-            static_spawnpoint = spawnpos;
-            minetest.chat_send_player(name, core.colorize("#00FF06", "Spawn sets successful at ".. spawn_pos.x .." ".. spawn_pos.y .." ".. spawn_pos.z .."!"))
-        else
-            minetest.chat_send_player(name, core.colorize("red", "Wrong position!"))
-            minetest.sound_play("error", name)
-        end
-    end
-    minetest.register_chatcommand("setspawn", {
-        params = "<X>,<Y>,<Z>",
-        description = "Sets a spawn point. (BETA)",
-        privs = {server = true},
-        func = set_the_spawn,
-    })
-end
--- end
 
 minetest.register_chatcommand("ip", {
     params = "<name>",
@@ -56,21 +15,26 @@ minetest.register_chatcommand("ip", {
 			return
 		end
 		minetest.chat_send_player(name, "IP address of ".. param .." is ".. minetest.get_player_ip(param))
-        
     end,
 })
 
 minetest.register_chatcommand("broadcast", {
     params = "<message>",
     description = "Send GLOBAL message in chat.",
-    privs = {server = true},
+    privs = {broadcast = true},
     func = function(name, param)
         if param == "" then
             core.chat_send_player(name, core.colorize("red", "Message cannot be empty!"))
             minetest.sound_play("error", name)
+            return
+        end
+        if minetest.check_player_privs(name, {server=true}) then
+            core.chat_send_all(core.colorize("#0006FF", "[Announcement] ")..core.colorize("#00FFC6", param))
         else
-            core.chat_send_all(core.colorize("#00FFC6", param))
-            minetest.sound_play("broadcast")
+            core.chat_send_all(core.colorize("#0006FF", "[Announcement] ")..core.colorize("#00FFC6", param).." "..core.colorize("#82909D", string.format("(Announced by %s)", name)))
+        end
+        for _, player in ipairs(minetest.get_connected_players()) do
+            minetest.sound_play("broadcast", player:get_player_name())
         end
     end,
 })
@@ -155,9 +119,9 @@ minetest.register_chatcommand("ban_menu", {
         if core.is_singleplayer() then
             minetest.chat_send_player(name, core.colorize("red", "You cannot ban in single mode!"))
             minetest.sound_play("error", name)
-        else
-            show_ban_menu(name)
+            return
         end
+        show_ban_menu(name)
     end
 })
 
@@ -168,9 +132,9 @@ minetest.register_chatcommand("kick_menu", {
         if core.is_singleplayer() then
             minetest.chat_send_player(name, core.colorize("red", "You cannot kick in single mode!"))
             minetest.sound_play("error", name)
-        else
-            show_kick_menu(name)
+            return
         end
+        show_kick_menu(name)
     end
 })
 
@@ -191,7 +155,7 @@ minetest.register_chatcommand("mute_menu", {
 minetest.register_chatcommand("getpos", {
     params = "<name>",
     description = "Allows the player to find out the position of another player.",
-    privs = {server = true},
+    privs = {teleport = true},
     func = function(name, param)
         local player = minetest.get_player_by_name(param);
 		if param == "" then
@@ -201,13 +165,12 @@ minetest.register_chatcommand("getpos", {
         elseif minetest.get_player_by_name(param) == nil then
 			minetest.chat_send_player(name, core.colorize("red", "Player ".. param .." not found!"))
             minetest.sound_play("error", name)
-			return
-		else
-            local pos = player:get_pos();
-            local round_pos = vector.round(pos);
-		    minetest.chat_send_player(name, "Position of ".. param .." is ".. round_pos.x .." ".. round_pos.y .." ".. round_pos.z)
-            
+            return
         end
+        local pos = player:get_pos();
+        local round_pos = vector.round(pos);
+		minetest.chat_send_player(name, "Position of ".. param .." is ".. round_pos.x .." ".. round_pos.y .." ".. round_pos.z)
+        minetest.sound_play("done", name)
     end,
 })
 
@@ -236,20 +199,28 @@ minetest.register_chatcommand("color", {
 })
 
 minetest.register_chatcommand("set_color", {
-    params = "<name>",
+    params = "<name> <color>",
 	description = "Sets a color for nickname of any player.",
 	privs = {server = true},
 	func = function(name, param)
-        if not param then
+        local toname, color = string.match(param, "^([^ ]+) +(.+)$")
+        if not toname then
             minetest.chat_send_player(name, core.colorize("red", "Please, specify an nickname of player."))
             return
         end
-        if minetest.get_player_by_name(param) == nil then
+        if not color then
+            minetest.chat_send_player(name, core.colorize("red", "Please, specify an color for nickname."))
+            return
+        end
+        if minetest.get_player_by_name(toname) == nil then
             minetest.chat_send_player(name, core.colorize("red", "Thats player offline or doesnt exist!"))
         else
-            minetest.get_player_by_name(othername):set_properties({
-                nametag = "*".. new_name,
-                nametag_color = "#AAAAAA"
+            minetest.chat_send_player(name, string.format("Color of nickname for player %s successfully changed to %s", toname, color))
+            if essentials.changed_by then
+                minetest.chat_send_player(toname, core.colorize("#00FF00", "Your color of nickname changed to \'".. color .."\' by ".. name))
+            end
+            minetest.get_player_by_name(toname):set_properties({
+                nametag_color = color
             })
         end
 	end

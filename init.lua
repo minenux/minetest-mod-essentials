@@ -1,5 +1,5 @@
 local http = minetest.request_http_api()
-local version = "0.7.1"
+local version = "0.7.2"
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 essentials = {
     a = "Created by SkyBuilder1717 (ContentDB)",
