@@ -1,5 +1,5 @@
 local http = minetest.request_http_api()
-local version = "0.7.2"
+local version = "0.7.1"
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 essentials = {
     a = "Created by SkyBuilder1717 (ContentDB)",
@@ -47,7 +47,7 @@ minetest.after(0, function()
                 --core.chat_send_all(dump(test))
                 if git > this then
                     minetest.log("warning", "[Essentials] Versions doesnt match!")
-                    core.chat_send_all("[Essentials] Your server using old version of mod! ("..core.colorize("red", version)..") Old version can have a bugs! Download v"..core.colorize("lime", result.data:gsub("[\n\\]", ""))..".")
+                    core.chat_send_all("[Essentials] Your server using old version of mod! ("..core.colorize("red", version)..") Old version can have a bugs! Download v"..core.colorize("lime", result.data:gsub("[\n\\]", "")).." on ContentDB.")
                 else
                     local _type
                     if core.is_singleplayer() then
