@@ -43,6 +43,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         player:set_properties({
             nametag_color = fields.color
         })
+        player:get_meta():set_string("essentials_color", fields.color)
         minetest.sound_play("clicked", name)
         minetest.close_formspec(name, formname)
     end

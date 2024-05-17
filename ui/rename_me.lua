@@ -47,7 +47,12 @@ minetest.register_on_player_receive_fields(function(player, formname, field)
             if new_name == "" then
                 minetest.chat_send_player(name, core.colorize("red", "New name cannot be empty!"))
                 minetest.sound_play("error")
-            elseif color == "" then
+                return
+            end
+            minetest.get_player_by_name(name):set_properties({
+                nametag_color = "",
+            })
+            if color == "" then
                 hide_names[name] = new_name
                 minetest.chat_send_player(name, core.colorize("green", "Name changed to '".. new_name .."'"))
                 minetest.sound_play("done")
@@ -73,16 +78,21 @@ minetest.register_on_player_receive_fields(function(player, formname, field)
             if new_name == "" then
                 minetest.chat_send_player(name, core.colorize("red", "New name cannot be empty!"))
                 minetest.sound_play("error")
-            elseif color == "" then
+                return
+            end
+            minetest.get_player_by_name(othername):set_properties({
+                nametag_color = "",
+            })
+            if color == "" then
                 hide_names[name] = new_name
                 minetest.chat_send_player(name, core.colorize("green", "Name of ".. othername .." changed to '".. new_name .."'"))
                 if essentials.changed_by then
                     minetest.chat_send_player(othername, core.colorize("green", "Your name changed to \'".. new_name .."\' by ".. name))
                 end
                 minetest.sound_play("done")
+                
                 minetest.get_player_by_name(othername):set_properties({
-                    nametag = "*".. new_name,
-                    nametag_color = "#AAAAAA"
+                    nametag = core.colorize("#AAAAAA", "*"..new_name),
                 })
                 minetest.close_formspec(name, formname)
             else

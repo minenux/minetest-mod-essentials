@@ -1,6 +1,13 @@
 local FORMNAME = "essentials:rename_item"
 
 function show_renameitem_menu(name)
+    local player = minetest.get_player_by_name(name)
+    if player:get_wielded_item():get_name() == "" then
+        minetest.chat_send_player(name, core.colorize("red", "Cant rename an empty item."))
+        minetest.sound_play("error")
+        return
+    end
+
 	local formspec = string.format([[
         formspec_version[6]
         size[9.6,9.6]
