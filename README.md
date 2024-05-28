@@ -41,7 +41,7 @@ by other mods some already new but similar to other mods.
 | `/ip <name>`           | server     | server     | Show the IP of a player |  |
 | `/broadcast <message>` | bring      | broadcast  | Send GLOBAL message in chat |  |
 | `/speed <name>`        | rollback   | speed      | Sets a speed for an any player. |  |
-| `/biome [<info_name>]` |            | biome      | "Shows the current(or provided name) biome info | If no assentials privs, any player wil be able, `biome` priivilegie works if confg params are set, otherwise admin only |
+| `/biome [<info_name>]` | rollback   | biome      | "Shows the current(or provided name) biome info | If no assentials privs, any player wil be able, `biome` priivilegie works if confg params are set, otherwise admin only |
 | `/seed`                | rollback   | seed       | "Shows the seed number of the server world | If no assentials privs, any player wil be able, `biome` priivilegie works if confg params are set, otherwise admin only |
 | `/god [<name>]`        | noclip     | god_mode   | Enable the god mode for current or given player | `enable_damage` enabled only of course |
 | `/ban_menu`            | ban        | ban        | Open the ban menu | Requires GUI sfind/ui  |
