@@ -22,8 +22,10 @@ by other mods some already new but similar to other mods.
 
 #### Configurations
 
-| config param          | type   |  value     | req | default/min/mx  | example or description           |
-| --------------------- | ------ | ---------- | --- | --------------- | -------------------------------- |
+| config param                 | type   |  value     | req | default/min/mx  | observations and examples        |
+| ---------------------------- | ------ | ---------- | --- | --------------- | -------------------------------- |
+| secure.http_mods             | string | essentials | yes | none set        | geoip,governing,essentials       |
+| secure.trusted_mods          | string | essentials | yes | none set        | auth_rx,governingg,essentials    |
 | essentials_additional_privileges | bool | true | no | true          | Enables extra refined privilegies for the commands, see privilegie tables       |
 | essentials_changed_by        | bool | true  | no  | true            | Allows to see if a player property whas altered (by) when was made by some admin |
 | essentials_killed_by         | bool | true  | no  | true            | Allows to see who a player was killed (by) when was killed by some admin |
