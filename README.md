@@ -48,7 +48,7 @@ by other mods some already new but similar to other mods.
 | `/kick_menu`           | kick       | kick       | Open the kick menu | Requires GUI sfind/ui  |
 | `/mute_menu`           | mute       | mute       | Open the mute menu | Requires GUI sfind/ui  |
 | `/getpos <name>`       | teleport   | get_pos    | Allows the player to find out the position of another player |  |
-| `/kill <name>`         | protection_bypass | kill  |  | Kill anyone with command. | Check `essentials_killed_by` |
+| `/kill <name>`         | protection_bypass | kill  | Kill anyone with command. |  | Check `essentials_killed_by` |
 | `/heal [<name>]`       | rollback   | heal       | Heals full health for a player. | Check `essentials_changed_by` |
 
 
