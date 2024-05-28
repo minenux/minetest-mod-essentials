@@ -1,7 +1,7 @@
 minetest-mod-essentials
 =========================
 
-mod with many-many useful console commands and api functions!
+Mod with many-many useful console commands and api functions!
 
 Information
 -----------
@@ -26,7 +26,7 @@ by other mods some already new but similar to other mods.
 | ---------------------------- | ------ | ---------- | --- | --------------- | -------------------------------- |
 | secure.http_mods             | string | essentials | yes | none set        | geoip,governing,essentials       |
 | secure.trusted_mods          | string | essentials | yes | none set        | auth_rx,governingg,essentials    |
-| essentials_additional_privileges | bool | true | no | true          | Enables extra refined privilegies for the commands, see privilegie tables       |
+| essentials_additional_privileges | bool | true | no | true          | Enables extra refined privilegies for the commands, see privilege tables       |
 | essentials_changed_by        | bool | true  | no  | true            | Allows to see if a player property whas altered (by) when was made by some admin |
 | essentials_killed_by         | bool | true  | no  | true            | Allows to see who a player was killed (by) when was killed by some admin |
 | essentials_biome             | bool | true  | no  | true            | Allows to see for anyone request biome infos, otherwise only admins allows |
@@ -41,8 +41,8 @@ by other mods some already new but similar to other mods.
 | `/ip <name>`           | server     | server     | Show the IP of a player |  |
 | `/broadcast <message>` | bring      | broadcast  | Send GLOBAL message in chat |  |
 | `/speed <name>`        | rollback   | speed      | Sets a speed for an any player. |  |
-| `/biome [<info_name>]` | rollback   | biome      | "Shows the current(or provided name) biome info | If no assentials privs, any player wil be able, `biome` priivilegie works if confg params are set, otherwise admin only |
-| `/seed`                | rollback   | seed       | "Shows the seed number of the server world | If no assentials privs, any player wil be able, `biome` priivilegie works if confg params are set, otherwise admin only |
+| `/biome [<info_name>]` | rollback (& server) | biome (& server) | Shows the current(or provided name) biome info | If no assentials privs, any player wil be able, `biome` privilege works if confg params are set, otherwise admin only |
+| `/seed`                | rollback   | seed       | Shows the seed number of the server world | If no assentials privs, any player wil be able, `biome` privilege works if confg params are set, otherwise admin only |
 | `/god [<name>]`        | noclip     | god_mode   | Enable the god mode for current or given player | `enable_damage` enabled only of course |
 | `/ban_menu`            | ban        | ban        | Open the ban menu | Requires GUI sfind/ui  |
 | `/kick_menu`           | kick       | kick       | Open the kick menu | Requires GUI sfind/ui  |
