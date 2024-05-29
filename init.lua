@@ -39,6 +39,10 @@ minetest.after(0, function()
     if essentials.check_for_updates then
         minetest.log("action", "[Essentials] Checking for updates...")
         if not minetest.request_insecure_environment() then
+            if not http then
+                minetest.log("error","[essentials] update check error, server http api cannot be access, unfortuantelly you are forced to added the mod to trusted ones, check README")
+                return
+            end
             minetest.log("action", "[Essentials] Getting an Github version...")
             http.fetch({
                 url = "https://raw.githubusercontent.com/SkyBuilder1717/essentials/main/gitVersion.txt",
@@ -55,8 +59,7 @@ minetest.after(0, function()
                 end
                 --core.chat_send_all(dump(test))
                 if git > this then
-                    minetest.log("warning", "[Essentials] Versions doesnt match!")
-                    core.chat_send_all("[Essentials] Your server using old version of mod! ("..core.colorize("red", version)..") Old version can have a bugs! Download v"..core.colorize("lime", result.data:gsub("[\n\\]", "")).." on ContentDB.")
+                    minetest.log("error", "[Essentials] Versions doesnt match! something wrong seems YOU ARE USING OLDER VERSION!")
                 else
                     local _type
                     if core.is_singleplayer() then
@@ -68,7 +71,7 @@ minetest.after(0, function()
                 end
             end)
         else
-            core.chat_send_all("[Essentials] Please, add mod \'essentials\' to \"secure.trusted_mods\" for checking an updates!")
+            minetest.log("error","[essentials] update check error, server http api cannot be access, unfortuantelly you are forced to added the mod to trusted ones, check README")
         end
     end
 end)
