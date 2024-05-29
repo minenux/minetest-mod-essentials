@@ -7,11 +7,11 @@ Information
 -----------
 
 This mod attempts to be an improvement usefully essentials commands 
-as a light version of some other tools like names-per-ip, global messages, hacks, 
-biome/stuffs management, player management etc etc etc
+as a featured version of some other tools etc etc etc, 
+**for more featured  check `governor` and `authrx` minenux versions mods** 
+on the informations below!
 
-This mod has some UI menues but almost all the tasks are done using 
-commands.
+![](screenshot.png)
 
 ## Technical info
 -----------------
@@ -19,6 +19,14 @@ commands.
 This mod must be named `essentials` and provides administrarion tools and 
 procedures to manage server using a bunch of commands some already provided 
 by other mods some already new but similar to other mods.
+
+**Almost 99% of this commands are already provided in `governor` mod**, 
+at minenux project, this mod is only for backguard and improved performance 
+respect original; if you want more simple and faster, use `governor` mod!
+
+**Ban, kick and mute features are already provided by MinenuX's auth redux** 
+version mod, check it out at https://git.minetest.io/minenux/minetest-mod-auth_rx 
+or also into codeberg at https://codeberg.org/minenux/minetest-mod-auth_rx
 
 #### Configurations
 
@@ -41,7 +49,7 @@ by other mods some already new but similar to other mods.
 | `/ip <name>`           | server     | server     | Show the IP of a player |  |
 | `/broadcast <message>` | bring      | broadcast  | Send GLOBAL message in chat |  |
 | `/speed <name>`        | rollback   | speed      | Sets a speed for an any player. |  |
-| `/biome [<info_name>]` | rollback (& server) | biome (& server) | Shows the current(or provided name) biome info | If no assentials privs, any player wil be able, `biome` privilege works if confg params are set, otherwise admin only |
+| `/biome [<info_name>]` |            | biome/server | Shows the current(or provided name) biome info | If no assentials privs, any player wil be able, `biome/server` privilege will provide more info |
 | `/seed`                | rollback   | seed       | Shows the seed number of the server world | If no assentials privs, any player wil be able, `biome` privilege works if confg params are set, otherwise admin only |
 | `/god [<name>]`        | noclip     | god_mode   | Enable the god mode for current or given player | `enable_damage` enabled only of course |
 | `/ban_menu`            | ban        | ban        | Open the ban menu | Requires GUI sfind/ui  |
