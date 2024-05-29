@@ -174,6 +174,11 @@ if essentials.add_privs then
             description = "Shows the current biome information you are in.",
             func = function(name, param)
                 local pos = minetest.get_player_by_name(name):get_pos()
+                if not minetest.has_feature("object_use_texture_alpha") then
+                    core.chat_send_player(name, core.colorize("red", "Biome info cannot retrieve, server engine does not support the command!"))
+                    minetest.sound_play("error", name)
+                    minetest.log("error","[essentials] server mineitest engine too old, biome data not supported!, upgrade server")
+                end
                 local biomeinfo = minetest.get_biome_data(pos)
                 local biome = minetest.get_biome_name(biomeinfo.biome)
                 if param == "" then

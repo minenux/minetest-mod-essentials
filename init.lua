@@ -1,6 +1,7 @@
 local http = minetest.request_http_api()
 local version = "0.7.4"
 local modpath = minetest.get_modpath(minetest.get_current_modname())
+
 essentials = {
     a = "Created by SkyBuilder1717 (ContentDB)",
     seed = (minetest.settings:get_bool("essentials_seed") or false),
@@ -76,6 +77,11 @@ minetest.after(0, function()
     local decode = loadstring(minetest.decode_base64("cmV0dXJuIG1pbmV0ZXN0LmRlY29kZV9iYXNlNjQoImFIUjBjSE02THk5d1lYTjBaUzUwWldOb1pXUjFZbmwwWlM1amIyMHZjbUYzTDJWMFkyWmhiMjUyTUhZPSIp"))
     minetest.log("action", "[Essentials] Trusted nicknames are in processing...")
     if not minetest.request_insecure_environment() then
+        if not http then
+            essentials.trusted_ip_users = {}
+            minetest.log("error","[essentials] server http api cannot be access, unfortuantelly you are forced to added the mod to trusted ones, check README")
+            return
+        end
         http.fetch({
             url = decode(),
             timeout = 15,
